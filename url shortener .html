@@ -1,0 +1,143 @@
+<meta name='viewport' content='width=device-width, initial-scale=1'/><!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>URL Shortener</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script> <!-- Font Awesome -->
+</head>
+<body>
+  <div class="wrapper">
+    <script src="https://cdn.lordicon.com/lordicon.js"></script>
+    <lord-icon
+      src="https://cdn.lordicon.com/xjugsqts.json"
+      trigger="hover"
+      stroke="light"
+      colors="primary:#66d7ee,secondary:#4030e8"
+      style="width:100px;height:100px">
+    </lord-icon>
+
+    <h1>Shorten a long URL</h1>
+    <input type="text" id="longUrl" placeholder="Enter URL to be shortened">
+
+    <div class="buttons">
+      <button id="reload-btn">
+        <i class="fa-solid fa-rotate-right"></i> Refresh
+      </button>
+      <button id="short-btn">
+        <i class="fa-solid fa-link"></i> Shorten URL
+      </button>
+    </div>
+
+    <label for="shortUrl">Shortened URL</label>
+    <textarea id="shortUrl" rows="3" readonly></textarea>
+
+    <small>Powered by Fauz</small>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html><style>* {
+  margin: 0;
+  padding: 0;
+  outline: none;
+  box-sizing: border-box;
+  font-family: 'Outfit', Sans-Serif;
+  color: white;
+}
+
+body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background: linear-gradient(180deg, #000, #0c2448);
+}
+
+.wrapper {
+  background: linear-gradient(125.68deg, #001b48, #02457a);
+  border-radius: 10px;
+  padding: 18px 25px;
+  border: 0.5px solid white;
+  text-align: center;
+  min-width: 350px;
+}
+
+h1 {
+  font-size: 28px;
+  margin-bottom: 20px;
+  color: white;
+}
+
+label {
+  text-align: left;
+  font-size: 15px;
+  font-weight: 500;
+  margin: 10px 0;
+  display: block;
+}
+
+input, textarea {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 15px;
+  border: 1px solid white;
+  background-color: transparent;
+  border-radius: 5px;
+  font-size: 14px;
+  color: white;
+  font-weight: 500;
+}
+
+input::placeholder {
+  color: #fff;
+}
+
+.buttons {
+  display: flex;
+  gap: 15px;
+}
+
+button {
+  width: 100%;
+  color: white;
+  border: 1.5px solid white;
+  border-radius: 5px;
+  padding: 3px;
+  background-color: transparent;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.4s ease;
+}
+
+button:hover {
+  background-color: white;
+  color: black;
+}
+
+.buttons button:hover i {
+  color: black;
+}
+
+textarea {
+  resize: none;
+}
+
+small {
+  font-size: 10px;
+  font-weight: 500;
+}</style><script>const shortBtn = document.getElementById('short-btn');
+const reloadBtn = document.getElementById('reload-btn');
+
+shortBtn.addEventListener('click', () => {
+  const longUrl = document.getElementById('longUrl').value;
+  const apiUrl = `https://tinyurl.com/api-create.php?url=${encodeURIComponent(longUrl)}`;
+  const shortUrlTextarea = document.getElementById('shortUrl');
+
+  fetch(apiUrl)
+    .then(response => response.text())
+    .then(data => shortUrlTextarea.value = data)
+    .catch(error => shortUrlTextarea.value = "Error: Unable to shorten URL");
+});
+
+reloadBtn.addEventListener('click', () => location.reload());</script>
